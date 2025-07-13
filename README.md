@@ -1,0 +1,1 @@
+This is a project that i am creating as a part of learning how to use github and learning JS
