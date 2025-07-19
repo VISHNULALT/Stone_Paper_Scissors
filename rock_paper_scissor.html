@@ -9,98 +9,115 @@
 
 <body>
     <p>ROCK PAPER SCISSOR</p>
+
     <button onclick="
         playGame('Rock')
         ">ROCK</button>
+
     <button onclick="
         playGame('Paper')
     ">PAPER</button>
+
     <button onclick="  
         playGame('Scissor')
     ">SCISSOR</button>
+
+    <p class="js-result"></p>
+
+    <p class="js-move"></p>
+
+    <p class="js-score-button"></p>
+
     <button onclick="
         resetScore()
     ">RESET</button>
 
     <script>
-        let score=JSON.parse(localStorage.getItem('score'));
-        if (score===null){
-            score={
-            wins:0,
-            losses:0,
-            ties:0
-        }};
-
-        function playGame(playerMove){
-            const comp_mov=Comp_choose()      
-            let result='';
-            if (playerMove==='Scissor')
-                {
-                if (comp_mov==='rock')
-                result='Lose';
-                else if(comp_mov==='paper')
-                result='Win';
-                else
-                result='Tie';            
-                }
-            else if (playerMove==='Paper'){
-                if (comp_mov==='rock')
-                result='Win';
-                else if(comp_mov==='paper')
-                result='Tie';
-                else
-                result='Lose';           
+        let score = JSON.parse(localStorage.getItem('score'));
+        if (score === null) {
+            score = {
+                wins: 0,
+                losses: 0,
+                ties: 0
             }
-            else{         
-                if (comp_mov==='rock')
-                result='Tie';
-                else if(comp_mov==='paper')
-                result='Lose';
+        };
+
+        updateScore();
+        function playGame(playerMove) {
+            const comp_mov = Comp_choose()
+            let result = '';
+            if (playerMove === 'Scissor') {
+                if (comp_mov === 'Rock')
+                    result = 'Lose';
+                else if (comp_mov === 'Paper')
+                    result = 'Win';
                 else
-                result='Win';
+                    result = 'Tie';
+            }
+            else if (playerMove === 'Paper') {
+                if (comp_mov === 'Rock')
+                    result = 'Win';
+                else if (comp_mov === 'Paper')
+                    result = 'Tie';
+                else
+                    result = 'Lose';
+            }
+            else {
+                if (comp_mov === 'Rock')
+                    result = 'Tie';
+                else if (comp_mov === 'Paper')
+                    result = 'Lose';
+                else
+                    result = 'Win';
             }
 
-            if (result==='Win'){
+            if (result === 'Win') {
                 score.wins++;
             }
-            else if(result==='Lose'){
+            else if (result === 'Lose') {
                 score.losses++;
             }
-            else if (result==='Tie'){
+            else if (result === 'Tie') {
                 score.ties++
             }
 
-            localStorage.setItem('score',JSON.stringify(score));
+            localStorage.setItem('score', JSON.stringify(score));
 
-            
-             alert(`You chose ${playerMove}. Computer chose ${comp_mov}. So its a ${result}
-Wins : ${score.wins},Losses : ${score.losses},Ties : ${score.ties}`);
-             
-             
+            updateScore();
+
+            document.querySelector('.js-result').innerHTML = result
+            document.querySelector('.js-move').innerHTML = `Your move : ${playerMove}--Computer Move : ${comp_mov}`;
+
+
         }
-        function resetScore(){
-            score.wins=0;
-            score.losses=0;
-            score.ties=0;
+        function resetScore() {
+            score.wins = 0;
+            score.losses = 0;
+            score.ties = 0;
             localStorage.removeItem('score');
+            document.querySelector('.js-score-button').innerHTML = `Wins : ${score.wins},Losses : ${score.losses},Ties : ${score.ties}`;
 
-            alert(`Your Score has been reset
-Wins : ${score.wins},Losses : ${score.losses},Ties : ${score.ties}`);
+
 
         }
 
 
-         function Comp_choose(){
-            let comp_mov='';
-            const random_no=Math.random();
-            if (random_no>=0 && random_no<1/3)
-            comp_mov='rock';
-            else if (random_no>=1/3 && random_no<2/3)
-            comp_mov='paper';
-            else 
-            comp_mov='scissor';
-            
+        function Comp_choose() {
+            let comp_mov = '';
+            const random_no = Math.random();
+            if (random_no >= 0 && random_no < 1 / 3)
+                comp_mov = 'Rock';
+            else if (random_no >= 1 / 3 && random_no < 2 / 3)
+                comp_mov = 'Paper';
+            else
+                comp_mov = 'Scissor';
+
             return comp_mov
+        }
+
+        function updateScore() {
+            document.querySelector('.js-score-button').innerHTML = `Wins : ${score.wins},Losses : ${score.losses},Ties : ${score.ties}`;
+
         }
 
     </script>
