@@ -5,32 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock paper scissor </title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <p>ROCK PAPER SCISSOR</p>
+    <p class="title">ROCK PAPER SCISSOR</p>
 
-    <button onclick="
-        playGame('Rock')
-        ">ROCK</button>
+    <button class="move-button" onclick="
+        playGame('Rock') 
+        "> <img src="images/Rock-emoji.png" alt="" class="move-icon"> </button>
 
-    <button onclick="
+    <button class="move-button" onclick="
         playGame('Paper')
-    ">PAPER</button>
+    "><img src="images/Paper-emoji.png" alt="" class="move-icon"></button>
 
-    <button onclick="  
+    <button class="move-button" onclick="  
         playGame('Scissor')
-    ">SCISSOR</button>
+    "><img src="images/Scissor-emoji.png" alt="" class="move-icon"></button>
 
-    <p class="js-result"></p>
+    <p class="js-result result"></p>
 
-    <p class="js-move"></p>
+    <p class="js-move">
+    </p>
 
-    <p class="js-score-button"></p>
+    <p class="js-score-button score"></p>
 
     <button onclick="
         resetScore()
-    ">RESET</button>
+    " class="reset-btn">RESET</button>
 
     <script>
         let score = JSON.parse(localStorage.getItem('score'));
@@ -86,9 +88,12 @@
             updateScore();
 
             document.querySelector('.js-result').innerHTML = result
-            document.querySelector('.js-move').innerHTML = `Your move : ${playerMove}--Computer Move : ${comp_mov}`;
-
-
+            document.querySelector('.js-move').innerHTML =
+                `You
+        <img src="images/${playerMove}-emoji.png" alt="" class="move-icon">
+        <img src="images/${comp_mov}-emoji.png" alt="" class="move-icon">
+        Computer`;
+        
         }
         function resetScore() {
             score.wins = 0;
